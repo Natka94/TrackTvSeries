@@ -1,0 +1,21 @@
+﻿<Page
+    x:Class="Seriale.DetailsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Seriale"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding Details, Source={StaticResource Locator}}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel Margin="100">
+            <TextBlock Text="{Binding CurrentTVSeries.Name}" FontSize="48"/>
+            <TextBlock TextWrapping="Wrap" Text="{Binding CurrentTVSeries.overview, FallbackValue=cos nie dziala}"/>
+            <TextBlock Text="{Binding CurrentTVSeries.homepage, FallbackValue=cos nie dziala}"/>
+            <TextBlock Text="{Binding CurrentTVSeries.PosterPath, FallbackValue=cos nie dziala}"/>
+            <Image Width="92" Source="{Binding CurrentTVSeries.PosterPath}"/>
+        <Button Content="GoBack" Command="{Binding GoBackCommand}"/>
+        </StackPanel>
+    </Grid>
+</Page>

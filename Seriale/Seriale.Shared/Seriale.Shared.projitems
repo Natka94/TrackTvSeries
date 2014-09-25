@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>975c6365-6d2a-42da-a7d3-3f790a79de7f</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Seriale</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\DelegateCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\INavigationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\NavigationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\PageOfTvSeries.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\TVSeries.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\DetailsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MainViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ViewModelLocator.cs" />
+  </ItemGroup>
+</Project>
