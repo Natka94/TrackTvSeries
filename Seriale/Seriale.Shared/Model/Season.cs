@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,13 @@ namespace Seriale.Model
         }
         [JsonProperty("season_number")]
         public int SeasonNumber { get; set; }
+
+
+        
+        public ObservableCollection<Episode> Episodes { get; set; }
+        public string Name { get; set; }
+        public string Overview { get; set; }
+     
 
         protected void NotifyPropertyChanged(string propertyName)
         {

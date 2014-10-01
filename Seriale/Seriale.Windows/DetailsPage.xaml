@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     DataContext="{Binding Details, Source={StaticResource Locator}}">
     <Page.Resources>
 
@@ -35,7 +36,15 @@
             <TextBlock TextWrapping="Wrap" Text="{Binding CurrentTvSeries.Overview, FallbackValue=cos nie dziala}"/>
             <TextBlock Text="{Binding CurrentTvSeries.Homepage, FallbackValue=cos nie dziala}"/>
             <TextBlock Text="{Binding CurrentTvSeries.PosterPath, FallbackValue=cos nie dziala}"/>
-         <ListBox ItemsSource="{Binding CurrentTvSeries.Seasons}" ItemTemplate="{StaticResource SeasonTemplate }"/>
+         <ListView ItemsSource="{Binding CurrentTvSeries.Seasons}" ItemTemplate="{StaticResource SeasonTemplate }"
+                    SelectedItem="{Binding SelectedSeason,Mode=TwoWay}">
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="Tapped">
+                        <Core:InvokeCommandAction Command="{Binding ShowSeasonPageCommand}"
+                                              CommandParameter="{Binding SelectedSeason}" />
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+            </ListView>
             <Image Width="92" Source="{Binding CurrentTvSeries.PosterPath}"/>
         <Button Content="GoBack" Command="{Binding GoBackCommand}"/>
         </StackPanel>

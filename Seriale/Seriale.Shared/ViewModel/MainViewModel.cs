@@ -71,7 +71,7 @@ namespace Seriale.ViewModel
 
             var instances=ServiceLocator.Current.GetInstance<DetailsViewModel>();
             await instances.Initialize(selectedTvSeries.Id);
-            _navigationService.NavigateTo(typeof(DetailsPage), SelectedTvSeries);
+            _navigationService.NavigateTo(typeof(DetailsPage));
 
         }
         private async Task getTvSeriesAsync()

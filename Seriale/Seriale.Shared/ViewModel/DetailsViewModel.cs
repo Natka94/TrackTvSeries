@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Practices.ServiceLocation;
+using Newtonsoft.Json;
 using Seriale.Helpers;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,10 @@ namespace Seriale.ViewModel
 
         readonly INavigationService _navigationService;
         public RelayCommand GoBackCommand { get; set; }
+        public RelayCommand ShowSeasonPageCommand { get; set; }
+
+        public Season SelectedSeason { get; set; }
+
         public async Task Initialize(int id)
         {
            CurrentTvSeries.Id = id;
@@ -27,7 +32,7 @@ namespace Seriale.ViewModel
             _navigationService = navigationService;
             CurrentTvSeries = new TvSeries();
             GoBackCommand = new RelayCommand(GoBack);
-            
+            //ShowSeasonPageCommand=new RelayCommand();
         }
 
         public void GoBack()
@@ -42,10 +47,15 @@ namespace Seriale.ViewModel
                 var client = new HttpClient();
                 var json = await client.GetStringAsync(urlBase);
                 CurrentTvSeries = JsonConvert.DeserializeObject<TvSeries>(json);
-          
-            
 
-     
+        }
+        private async void goToSeason(Season selectedSeason)
+        {
+
+
+            var instances = ServiceLocator.Current.GetInstance<SeasonViewModel>();
+            await instances.Initialize(SelectedSeason.Id,CurrentTvSeries);
+            _navigationService.NavigateTo(typeof(SeasonPage));
 
         }
         public event PropertyChangedEventHandler PropertyChanged;
