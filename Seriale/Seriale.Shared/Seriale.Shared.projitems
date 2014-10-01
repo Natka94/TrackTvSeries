@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\INavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\NavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\PageOfTvSeries.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Season.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\TVSeries.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\DetailsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MainViewModel.cs" />

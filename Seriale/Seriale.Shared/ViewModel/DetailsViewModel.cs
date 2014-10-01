@@ -13,19 +13,19 @@ namespace Seriale.ViewModel
 {
     public class DetailsViewModel : INotifyPropertyChanged
     {
-        public TVSeries CurrentTVSeries { get; set; } 
+        public TvSeries CurrentTvSeries { get; set; }
 
-        INavigationService _navigationService;
+        readonly INavigationService _navigationService;
         public RelayCommand GoBackCommand { get; set; }
         public async Task Initialize(int id)
         {
-           CurrentTVSeries.Id = id;
+           CurrentTvSeries.Id = id;
             await getInfoAsync();
 
         }
         public DetailsViewModel(INavigationService navigationService){
             _navigationService = navigationService;
-            CurrentTVSeries = new TVSeries();
+            CurrentTvSeries = new TvSeries();
             GoBackCommand = new RelayCommand(GoBack);
             
         }
@@ -36,17 +36,13 @@ namespace Seriale.ViewModel
         }
         private async Task getInfoAsync()
         {
-            string urlBase = String.Format("https://api.themoviedb.org/3/tv/{0}?api_key=6ddd8a671123ed37164c64d1c8b33a0c", CurrentTVSeries.Id);
-            try
-            {
+            var urlBase = String.Format("https://api.themoviedb.org/3/tv/{0}?api_key=6ddd8a671123ed37164c64d1c8b33a0c", CurrentTvSeries.Id);
+            
                 
                 var client = new HttpClient();
                 var json = await client.GetStringAsync(urlBase);
-                CurrentTVSeries = JsonConvert.DeserializeObject<TVSeries>(json);
-            }
-            catch (Exception) {
-                CurrentTVSeries.overview = urlBase;
-            }
+                CurrentTvSeries = JsonConvert.DeserializeObject<TvSeries>(json);
+          
             
 
      

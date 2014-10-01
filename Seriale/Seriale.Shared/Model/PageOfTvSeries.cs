@@ -13,7 +13,7 @@ namespace Seriale.Model
         {
             public int Page { get; set; }
             [JsonProperty(PropertyName = "results")]
-            public ObservableCollection<TVSeries> List { get; set; }
+            public ObservableCollection<TvSeries> List { get; set; }
             [JsonProperty(PropertyName = "total_pages")]
             public int TotalPages { get; set; }
             [JsonProperty(PropertyName = "total_results")]
@@ -21,14 +21,14 @@ namespace Seriale.Model
       
 
 
-            public event PropertyChangedEventHandler PropertyChanged;
-            protected void NotifyPropertyChanged(string propertyName)
-            {
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-                }
-            }
+            //public event PropertyChangedEventHandler PropertyChanged;
+            //protected void NotifyPropertyChanged(string propertyName)
+            //{
+            //    if (PropertyChanged != null)
+            //    {
+            //        PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            //    }
+            //}
         
     }
 }

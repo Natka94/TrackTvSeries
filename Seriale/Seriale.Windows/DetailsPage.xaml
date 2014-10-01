@@ -7,14 +7,36 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     DataContext="{Binding Details, Source={StaticResource Locator}}">
+    <Page.Resources>
 
+        <DataTemplate x:Key="SeasonTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image Width="46" Source="{Binding PosterPath}" />
+                <StackPanel Grid.Column="1" Margin="5">
+
+                    <TextBlock Text="{Binding SeasonNumber, FallbackValue=Date}" Padding="3,0,0,0" />
+
+                    <TextBlock Text="{Binding AirDate, FallbackValue=Distance}" />
+
+                </StackPanel>
+
+            </Grid>
+
+        </DataTemplate>
+
+    </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Margin="100">
-            <TextBlock Text="{Binding CurrentTVSeries.Name}" FontSize="48"/>
-            <TextBlock TextWrapping="Wrap" Text="{Binding CurrentTVSeries.overview, FallbackValue=cos nie dziala}"/>
-            <TextBlock Text="{Binding CurrentTVSeries.homepage, FallbackValue=cos nie dziala}"/>
-            <TextBlock Text="{Binding CurrentTVSeries.PosterPath, FallbackValue=cos nie dziala}"/>
-            <Image Width="92" Source="{Binding CurrentTVSeries.PosterPath}"/>
+            <TextBlock Text="{Binding CurrentTvSeries.Name}" FontSize="48"/>
+            <TextBlock TextWrapping="Wrap" Text="{Binding CurrentTvSeries.Overview, FallbackValue=cos nie dziala}"/>
+            <TextBlock Text="{Binding CurrentTvSeries.Homepage, FallbackValue=cos nie dziala}"/>
+            <TextBlock Text="{Binding CurrentTvSeries.PosterPath, FallbackValue=cos nie dziala}"/>
+         <ListBox ItemsSource="{Binding CurrentTvSeries.Seasons}" ItemTemplate="{StaticResource SeasonTemplate }"/>
+            <Image Width="92" Source="{Binding CurrentTvSeries.PosterPath}"/>
         <Button Content="GoBack" Command="{Binding GoBackCommand}"/>
         </StackPanel>
     </Grid>

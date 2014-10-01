@@ -17,60 +17,71 @@ namespace Seriale.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        public string TvSeriesQuery { get; set; }
-        private TVSeries _selectedTVSeries;
-        public TVSeries SelectedTVSeries
-        {
-            get { return _selectedTVSeries; }
+        private string _tvSeriesQuery;
+        public string TvSeriesQuery {
+            get { return _tvSeriesQuery; }
             set
             {
-                _selectedTVSeries = value;
-                NotifyPropertyChanged("SelectedTVSeries");
+                if (_tvSeriesQuery == value) return;
+                
+                _tvSeriesQuery = value;
+                if(String.IsNullOrWhiteSpace(_tvSeriesQuery)) AllTvSeries.List.Clear();
+                else  SearchTvSeriesCommand.Execute(value);
             }
         }
-        private PageOfTvSeries _allTVSeries = new PageOfTvSeries();
-        public PageOfTvSeries AllTVSeries
+        private TvSeries _selectedTvSeries;
+        public TvSeries SelectedTvSeries
         {
-            get { return _allTVSeries; }
+            get { return _selectedTvSeries; }
             set
             {
-                _allTVSeries = value;
-                NotifyPropertyChanged("AllTVSeries");
+                _selectedTvSeries = value;
+                NotifyPropertyChanged("SelectedTvSeries");
             }
         }
-        public RelayCommand<object> SearchTVSeriesCommand { get; set; }
-        public RelayCommand<object> GetTVSeriesCommand { get; set; }
-        public RelayCommand<TVSeries> ShowDetailsPageCommand { get; set; }
+        private PageOfTvSeries _allTvSeries = new PageOfTvSeries();
+        public PageOfTvSeries AllTvSeries
+        {
+            get { return _allTvSeries; }
+            set
+            {
+                _allTvSeries = value;
+                NotifyPropertyChanged("AllTvSeries");
+            }
+        }
+        public RelayCommand<object> SearchTvSeriesCommand { get; set; }
+        public RelayCommand<object> GetTvSeriesCommand { get; set; }
+        public RelayCommand<TvSeries> ShowDetailsPageCommand { get; set; }
        
-        private INavigationService _navigationService;
+        private readonly INavigationService _navigationService;
         public MainViewModel(INavigationService navigationService)
         
         {
           
             _navigationService = navigationService;
-            GetTVSeriesCommand = new RelayCommand<object>( async (ob) => await getTVSeriesAsync());
-            ShowDetailsPageCommand = new RelayCommand<TVSeries>( (arg) => goToDetails(arg) );
-            SearchTVSeriesCommand=new RelayCommand<object>( async (ob) => await searchTVSeriesAsync());
+            GetTvSeriesCommand = new RelayCommand<object>( async (ob) => await getTvSeriesAsync());
+            ShowDetailsPageCommand = new RelayCommand<TvSeries>(goToDetails);
+            SearchTvSeriesCommand=new RelayCommand<object>( async (ob) => await searchTVSeriesAsync());
         }
 
 
-        private async void goToDetails(TVSeries selectedTVSeries)
+        private async void goToDetails(TvSeries selectedTvSeries)
         {
             
 
             var instances=ServiceLocator.Current.GetInstance<DetailsViewModel>();
-            await instances.Initialize(selectedTVSeries.Id);
-            _navigationService.NavigateTo(typeof(DetailsPage), SelectedTVSeries);
+            await instances.Initialize(selectedTvSeries.Id);
+            _navigationService.NavigateTo(typeof(DetailsPage), SelectedTvSeries);
 
         }
-        private async Task getTVSeriesAsync()
+        private async Task getTvSeriesAsync()
         {
            
 
-           string urlBase = "https://api.themoviedb.org/3/tv/popular?api_key=6ddd8a671123ed37164c64d1c8b33a0c";
+           const string urlBase = "https://api.themoviedb.org/3/tv/popular?api_key=6ddd8a671123ed37164c64d1c8b33a0c";
            var client = new HttpClient();
            var json = await client.GetStringAsync(urlBase);
-           AllTVSeries = JsonConvert.DeserializeObject<PageOfTvSeries>(json);
+           AllTvSeries = JsonConvert.DeserializeObject<PageOfTvSeries>(json);
            
            
            
@@ -81,10 +92,10 @@ namespace Seriale.ViewModel
         {
 
 
-            string urlBase = "https://api.themoviedb.org/3/search/tv?api_key=6ddd8a671123ed37164c64d1c8b33a0c&query="+TvSeriesQuery;
+            var urlBase = "https://api.themoviedb.org/3/search/tv?api_key=6ddd8a671123ed37164c64d1c8b33a0c&query="+TvSeriesQuery;
             var client = new HttpClient();
             var json = await client.GetStringAsync(urlBase);
-            AllTVSeries = JsonConvert.DeserializeObject<PageOfTvSeries>(json);
+            AllTvSeries = JsonConvert.DeserializeObject<PageOfTvSeries>(json);
 
 
 
