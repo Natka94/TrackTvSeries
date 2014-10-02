@@ -32,7 +32,7 @@ namespace Seriale.ViewModel
             _navigationService = navigationService;
             CurrentTvSeries = new TvSeries();
             GoBackCommand = new RelayCommand(GoBack);
-            //ShowSeasonPageCommand=new RelayCommand();
+            ShowSeasonPageCommand=new RelayCommand(goToSeason);
         }
 
         public void GoBack()
@@ -49,12 +49,12 @@ namespace Seriale.ViewModel
                 CurrentTvSeries = JsonConvert.DeserializeObject<TvSeries>(json);
 
         }
-        private async void goToSeason(Season selectedSeason)
+        private async void goToSeason()
         {
 
 
             var instances = ServiceLocator.Current.GetInstance<SeasonViewModel>();
-            await instances.Initialize(SelectedSeason.Id,CurrentTvSeries);
+            await instances.Initialize(SelectedSeason.SeasonNumber,CurrentTvSeries);
             _navigationService.NavigateTo(typeof(SeasonPage));
 
         }

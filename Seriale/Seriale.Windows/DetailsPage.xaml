@@ -41,7 +41,7 @@
                 <Interactivity:Interaction.Behaviors>
                     <Core:EventTriggerBehavior EventName="Tapped">
                         <Core:InvokeCommandAction Command="{Binding ShowSeasonPageCommand}"
-                                              CommandParameter="{Binding SelectedSeason}" />
+                                               />
                     </Core:EventTriggerBehavior>
                 </Interactivity:Interaction.Behaviors>
             </ListView>

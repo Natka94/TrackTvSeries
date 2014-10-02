@@ -1,14 +1,19 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace Seriale.Model
 {
-    public class Episode
+    public class Episode: ObservableObject
     {
-        public string air_date { get; set; }
-        public int Episode_number { get; set; }
+        [JsonProperty("air_date")]
+        public string AirDate { get; set; }
+        [JsonProperty("episode_number")]
+        public int EpisodeNumber { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Overview { get; set; }

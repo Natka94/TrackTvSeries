@@ -7,10 +7,30 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     DataContext="{Binding Season, Source={StaticResource Locator}}">
+    <Page.Resources>
 
+        <DataTemplate x:Key="EpisodeTemplate">
+            <Grid>
+
+
+                <StackPanel Margin="5">
+
+                    <TextBlock Text="{Binding Name, FallbackValue=Date}" Padding="3,0,0,0" />
+
+                    <TextBlock Text="{Binding EpisodeNumber, FallbackValue=Distance}" />
+
+                </StackPanel>
+
+            </Grid>
+
+        </DataTemplate>
+
+    </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-        <TextBlock Text="{Binding CurrentSeason.SeasonNumber}"/>
-        <TextBlock Text="{Binding CurrentSeason.Overview}"/>
+        <TextBlock Text="{Binding CurrentSeason.SeasonNumber}" />
+        <TextBlock Text="{Binding CurrentSeason.Overview}" />
+        <ListView ItemsSource="{Binding CurrentSeason.Episodes}" 
+                  ItemTemplate="{StaticResource EpisodeTemplate}" />
     </Grid>
 </Page>

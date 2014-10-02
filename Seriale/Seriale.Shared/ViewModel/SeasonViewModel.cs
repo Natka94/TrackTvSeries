@@ -14,10 +14,10 @@ namespace Seriale.ViewModel
     {
         public Season CurrentSeason { get; set; }// może fasada?
         public TvSeries CurrentTvSeries { get; set; }
-        private int _idOfSeason;
-        public async Task Initialize(int idOfSeason, TvSeries currentTvSeries)
+        private int _numberOfSeason;
+        public async Task Initialize(int numberOfSeason, TvSeries currentTvSeries)
         {
-            _idOfSeason = idOfSeason;
+            _numberOfSeason = numberOfSeason;
             CurrentTvSeries = currentTvSeries;
            await getInfoAsync();
 
@@ -25,12 +25,12 @@ namespace Seriale.ViewModel
 
         private async Task getInfoAsync()
         {
-            var urlBase = String.Format("https://api.themoviedb.org/3/tv/{0}/season/{1}?api_key=6ddd8a671123ed37164c64d1c8b33a0c", CurrentTvSeries.Id,_idOfSeason);
+            var urlBase = String.Format("https://api.themoviedb.org/3/tv/{0}/season/{1}?api_key=6ddd8a671123ed37164c64d1c8b33a0c", CurrentTvSeries.Id,_numberOfSeason);
 
 
             var client = new HttpClient();
             var json = await client.GetStringAsync(urlBase);
-            CurrentSeason=CurrentTvSeries.Seasons.First(x=>x.Id==_idOfSeason);
+            CurrentSeason=CurrentTvSeries.Seasons.FirstOrDefault(x=>x.SeasonNumber==_numberOfSeason);
             CurrentSeason = JsonConvert.DeserializeObject<Season>(json);
         }
 
