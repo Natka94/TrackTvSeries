@@ -4,7 +4,7 @@
     xmlns:local="using:Seriale"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     x:Class="Seriale.MainPage"
     mc:Ignorable="d"
     DataContext="{Binding Main, Source={StaticResource Locator}}">
@@ -58,12 +58,12 @@
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ItemsSource="{Binding AllTvSeries.List, Mode=TwoWay}" ItemTemplate="{StaticResource TvSeriesTemplate}"
                   SelectedItem="{Binding SelectedTvSeries,Mode=TwoWay}">
-            <Interactivity:Interaction.Behaviors>
+            <interactivity:Interaction.Behaviors>
                 <Core:EventTriggerBehavior EventName="Tapped">
                     <Core:InvokeCommandAction Command="{Binding ShowDetailsPageCommand}"
                                               CommandParameter="{Binding SelectedTvSeries}" />
                 </Core:EventTriggerBehavior>
-            </Interactivity:Interaction.Behaviors>
+            </interactivity:Interaction.Behaviors>
 
         </ListView>
 

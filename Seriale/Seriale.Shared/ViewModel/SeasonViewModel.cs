@@ -30,7 +30,7 @@ namespace Seriale.ViewModel
 
             var client = new HttpClient();
             var json = await client.GetStringAsync(urlBase);
-            CurrentSeason=CurrentTvSeries.Seasons.FirstOrDefault(x=>x.SeasonNumber==_numberOfSeason);
+            CurrentTvSeries.Seasons.FirstOrDefault(x=>x.SeasonNumber==_numberOfSeason);
             CurrentSeason = JsonConvert.DeserializeObject<Season>(json);
         }
 

@@ -14,6 +14,7 @@ namespace Seriale.Model
         public string AirDate { get; set; }
         public int Id { get; set; }
         private string _posterPath;
+        
         [JsonProperty("poster_path")]
         public string PosterPath
         {
@@ -28,8 +29,19 @@ namespace Seriale.Model
         [JsonProperty("season_number")]
         public int SeasonNumber { get; set; }
 
+        private bool _episodesVisible;
 
-        
+        public bool EpisodesVisible
+        {
+            get { return _episodesVisible; }
+            set
+            {
+                _episodesVisible = value;
+                NotifyPropertyChanged("EpisodesVisible");
+                
+            }
+        }
+
         public ObservableCollection<Episode> Episodes { get; set; }
         public string Name { get; set; }
         public string Overview { get; set; }

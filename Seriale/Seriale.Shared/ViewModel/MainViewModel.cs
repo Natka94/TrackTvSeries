@@ -49,8 +49,8 @@ namespace Seriale.ViewModel
                 NotifyPropertyChanged("AllTvSeries");
             }
         }
-        public RelayCommand<object> SearchTvSeriesCommand { get; set; }
-        public RelayCommand<object> GetTvSeriesCommand { get; set; }
+        public RelayCommand SearchTvSeriesCommand { get; set; }
+        public RelayCommand GetTvSeriesCommand { get; set; }
         public RelayCommand<TvSeries> ShowDetailsPageCommand { get; set; }
        
         private readonly INavigationService _navigationService;
@@ -59,9 +59,9 @@ namespace Seriale.ViewModel
         {
           
             _navigationService = navigationService;
-            GetTvSeriesCommand = new RelayCommand<object>( async (ob) => await getTvSeriesAsync());
+            GetTvSeriesCommand = new RelayCommand( async () => await getTvSeriesAsync());
             ShowDetailsPageCommand = new RelayCommand<TvSeries>(goToDetails);
-            SearchTvSeriesCommand=new RelayCommand<object>( async (ob) => await searchTVSeriesAsync());
+            SearchTvSeriesCommand=new RelayCommand( async () => await searchTVSeriesAsync());
         }
 
 
