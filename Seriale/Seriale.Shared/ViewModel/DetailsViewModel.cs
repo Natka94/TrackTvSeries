@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.Practices.ServiceLocation;
 using Newtonsoft.Json;
@@ -28,7 +29,7 @@ namespace Seriale.ViewModel
             get { return _selectedSeason; }
             set
             {
-               if(_selectedSeason!=null) _selectedSeason.EpisodesVisible = false;
+                // if(_selectedSeason!=null) _selectedSeason.EpisodesVisible = false;
                 _selectedSeason = value;
                 NotifyPropertyChanged("SelectedSeason");
             }
@@ -38,9 +39,6 @@ namespace Seriale.ViewModel
         {
             CurrentTvSeries.Id = id;
             await getInfoAsync();
-
-
-            //  await loadEpisodes();
         }
 
         public DetailsViewModel(INavigationService navigationService)
@@ -51,17 +49,21 @@ namespace Seriale.ViewModel
             ShowSeasonPageCommand = new RelayCommand(goToSeason);
         }
 
-        private async Task loadEpisodes(int numberOfItem)
+        private async Task loadEpisodes()
         {
             var urlBase =
                 String.Format(
                     "https://api.themoviedb.org/3/tv/{0}/season/{1}?api_key=6ddd8a671123ed37164c64d1c8b33a0c",
-                    CurrentTvSeries.Id, CurrentTvSeries.Seasons[numberOfItem].SeasonNumber);
+                    CurrentTvSeries.Id, SelectedSeason.SeasonNumber);
 
 
             var client = new HttpClient();
             var json = await client.GetStringAsync(urlBase);
-            CurrentTvSeries.Seasons[numberOfItem] = JsonConvert.DeserializeObject<Season>(json);
+            var season = JsonConvert.DeserializeObject<Season>(json);
+
+            var indexOfSeason = CurrentTvSeries.Seasons.ToList().FindIndex(x => SelectedSeason.Id == x.Id);
+            CurrentTvSeries.Seasons[indexOfSeason] = season;
+            CurrentTvSeries.Seasons[indexOfSeason].EpisodesVisible = true;
         }
 
         public void GoBack()
@@ -74,24 +76,20 @@ namespace Seriale.ViewModel
             var urlBase = String.Format("https://api.themoviedb.org/3/tv/{0}?api_key=6ddd8a671123ed37164c64d1c8b33a0c",
                 CurrentTvSeries.Id);
 
-
             var client = new HttpClient();
             var json = await client.GetStringAsync(urlBase);
             CurrentTvSeries = JsonConvert.DeserializeObject<TvSeries>(json);
-            for (int i = 0; i < CurrentTvSeries.Seasons.Count; i++)
-            {
-                await loadEpisodes(i);
-            }
         }
 
         private async void goToSeason()
         {
-            if (!SelectedSeason.EpisodesVisible) SelectedSeason.EpisodesVisible = true;
+            if (!SelectedSeason.EpisodesVisible) await loadEpisodes();
+
             else
             {
                 var instances = ServiceLocator.Current.GetInstance<SeasonViewModel>();
                 await instances.Initialize(SelectedSeason.SeasonNumber, CurrentTvSeries);
-                _navigationService.NavigateTo(typeof(SeasonPage));
+                _navigationService.NavigateTo(typeof (SeasonPage));
             }
         }
 

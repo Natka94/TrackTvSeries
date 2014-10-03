@@ -40,7 +40,10 @@
                                Padding="3,0,0,0" />
 
                     <TextBlock Text="{Binding AirDate, FallbackValue=Distance}" />
-                    <ListView Visibility= "{Binding EpisodesVisible, Mode=TwoWay, Converter={StaticResource BoolToVisConverter} }"  ItemsSource="{Binding Episodes,Mode=TwoWay}" ItemTemplate="{StaticResource EpisodeTemplate}" />
+                    <ListView Visibility= "{Binding EpisodesVisible, 
+                        Mode=TwoWay, 
+                        Converter={StaticResource BoolToVisConverter} }"  
+                              ItemsSource="{Binding Episodes,Mode=TwoWay}" ItemTemplate="{StaticResource EpisodeTemplate}" />
                 </StackPanel>
 
             </Grid>
@@ -49,24 +52,33 @@
 
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel Margin="100">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="50">
+            <Image Margin="5" Width="92" Source="{Binding CurrentTvSeries.PosterPath}" />
+            <StackPanel>
             <TextBlock Text="{Binding CurrentTvSeries.Name}" FontSize="48" />
             <TextBlock TextWrapping="Wrap" Text="{Binding CurrentTvSeries.Overview, FallbackValue=cos nie dziala}" />
-            <TextBlock Text="{Binding CurrentTvSeries.Homepage, FallbackValue=cos nie dziala}" />
-            
-            <TextBlock Text="{Binding CurrentTvSeries.PosterPath, FallbackValue=cos nie dziala}" />
-            
-            <ListView ItemsSource="{Binding CurrentTvSeries.Seasons, Mode=TwoWay}" 
+                <TextBlock Text="{Binding CurrentTvSeries.Homepage, FallbackValue=cos nie dziala}" />
+                <Button Content="GoBack" Command="{Binding GoBackCommand}" />
+            </StackPanel>
+        </StackPanel>
+        <ListView Grid.Row="1" ItemsSource="{Binding CurrentTvSeries.Seasons, Mode=TwoWay}" 
                       ItemTemplate="{StaticResource SeasonTemplate }"
-                      SelectedItem="{Binding SelectedSeason,Mode=TwoWay}">
+                      SelectedItem="{Binding SelectedSeason,Mode=TwoWay}"
+                      ScrollViewer.HorizontalScrollMode="Auto"
+                  ScrollViewer.VerticalScrollMode="Auto"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <interactivity:Interaction.Behaviors>
                     <Core:EventTriggerBehavior EventName="Tapped">
                         <Core:InvokeCommandAction Command="{Binding ShowSeasonPageCommand}" />
                     </Core:EventTriggerBehavior>
                 </interactivity:Interaction.Behaviors>
             </ListView>
-            <Image Width="92" Source="{Binding CurrentTvSeries.PosterPath}" />
-            <Button Content="GoBack" Command="{Binding GoBackCommand}" />
-        </StackPanel>
+        
+        
     </Grid>
 </Page>

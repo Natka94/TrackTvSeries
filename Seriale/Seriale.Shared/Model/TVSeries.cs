@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using GalaSoft.MvvmLight;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace Seriale.Model
     }
 
     
-    public class TvSeries : INotifyPropertyChanged
+    public class TvSeries : ObservableObject
     {
         [JsonProperty("backdrop_path")]
         public string BackdropPath { get; set; }
@@ -48,7 +49,7 @@ namespace Seriale.Model
             set {
                 if (_posterPath == "http://image.tmdb.org/t/p/w92" + value) return;
                 _posterPath = "http://image.tmdb.org/t/p/w92" + value;
-                NotifyPropertyChanged("PosterPath");
+                
             }
         }
         
@@ -76,19 +77,11 @@ namespace Seriale.Model
         public string Title { get; set; }
         public List<string> origin_country { get; set; }
         public string Overview { get; set; }
-        public List<Season> Seasons { get; set; }
+        public ObservableCollection<Season> Seasons { get; set; }
         public string Status { get; set; }
         public bool Adult { get; set; }
         public string original_title { get; set; }
         public string release_date { get; set; }
-        protected void NotifyPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
+       
     }
 }
