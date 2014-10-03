@@ -21,7 +21,9 @@ namespace Seriale.ViewModel
 
         private readonly INavigationService _navigationService;
         public RelayCommand GoBackCommand { get; set; }
-        public RelayCommand ShowSeasonPageCommand { get; set; }
+        public RelayCommand ShowEpisodesCommand { get; set; }
+        public RelayCommand ShowEpisodeDetailsCommand { get; set; }
+        public Episode SelectedEpisode  { get; set; }
         private Season _selectedSeason;
 
         public Season SelectedSeason
@@ -46,11 +48,13 @@ namespace Seriale.ViewModel
             _navigationService = navigationService;
             CurrentTvSeries = new TvSeries();
             GoBackCommand = new RelayCommand(GoBack);
-            ShowSeasonPageCommand = new RelayCommand(goToSeason);
+            ShowEpisodesCommand = new RelayCommand(async () => await loadEpisodes());
+            ShowEpisodeDetailsCommand=new RelayCommand(async () => await goToEpisodeDetails());
         }
 
         private async Task loadEpisodes()
         {
+            if (SelectedSeason==null || SelectedSeason.EpisodesVisible) return;
             var urlBase =
                 String.Format(
                     "https://api.themoviedb.org/3/tv/{0}/season/{1}?api_key=6ddd8a671123ed37164c64d1c8b33a0c",
@@ -71,6 +75,13 @@ namespace Seriale.ViewModel
             _navigationService.GoBack();
         }
 
+        private async Task goToEpisodeDetails()
+        {
+            var instances = ServiceLocator.Current.GetInstance<EpisodeViewModel>();
+            await instances.Initialize(CurrentTvSeries, SelectedEpisode.SeasonNumber,SelectedEpisode.EpisodeNumber);
+            _navigationService.NavigateTo(typeof(EpisodePage));
+
+        }
         private async Task getInfoAsync()
         {
             var urlBase = String.Format("https://api.themoviedb.org/3/tv/{0}?api_key=6ddd8a671123ed37164c64d1c8b33a0c",
@@ -81,17 +92,7 @@ namespace Seriale.ViewModel
             CurrentTvSeries = JsonConvert.DeserializeObject<TvSeries>(json);
         }
 
-        private async void goToSeason()
-        {
-            if (!SelectedSeason.EpisodesVisible) await loadEpisodes();
-
-            else
-            {
-                var instances = ServiceLocator.Current.GetInstance<SeasonViewModel>();
-                await instances.Initialize(SelectedSeason.SeasonNumber, CurrentTvSeries);
-                _navigationService.NavigateTo(typeof (SeasonPage));
-            }
-        }
+       
 
         public event PropertyChangedEventHandler PropertyChanged;
 

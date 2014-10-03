@@ -1,0 +1,19 @@
+﻿<Page
+    x:Class="Seriale.EpisodePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Seriale"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding Episode, Source={StaticResource Locator}}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel Margin="50">
+            <TextBlock Text="{Binding CurrentEpisode.Name}" FontSize="24" />
+            <TextBlock Text="{Binding CurrentEpisode.Overview}" TextWrapping="Wrap" />
+            <Image Margin="5" Width="92" Source="{Binding CurrentTvSeries.PosterPath}" />
+            <Button Content="GoBack" Command="{Binding GoBackCommand}" />
+        </StackPanel>
+    </Grid>
+</Page>

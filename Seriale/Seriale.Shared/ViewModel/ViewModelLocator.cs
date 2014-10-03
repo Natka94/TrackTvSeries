@@ -42,7 +42,7 @@ namespace Seriale.ViewModel
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<DetailsViewModel>();
-            SimpleIoc.Default.Register<SeasonViewModel>();
+            SimpleIoc.Default.Register<EpisodeViewModel>();
             
 
         }
@@ -67,11 +67,11 @@ namespace Seriale.ViewModel
                 return ServiceLocator.Current.GetInstance<DetailsViewModel>();
             }
         }
-        public SeasonViewModel Season
+        public EpisodeViewModel Episode
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<SeasonViewModel>();
+                return ServiceLocator.Current.GetInstance<EpisodeViewModel>();
             }
         }
     }

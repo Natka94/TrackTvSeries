@@ -24,8 +24,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\Season.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\TVSeries.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\DetailsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\EpisodeViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MainViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\SeasonViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ViewModelLocator.cs" />
   </ItemGroup>
 </Project>
