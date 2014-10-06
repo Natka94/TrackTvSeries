@@ -2,10 +2,7 @@
     x:Class="Seriale.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Seriale"
-    xmlns:vm="using:Seriale.ViewModel"
-     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:ignore="http://www.ignore.com">
+    xmlns:vm="using:Seriale.ViewModel">
     <Application.Resources>
         <vm:ViewModelLocator x:Key="Locator"/>
     </Application.Resources>

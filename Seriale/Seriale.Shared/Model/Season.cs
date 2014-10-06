@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using Newtonsoft.Json;
 
 namespace Seriale.Model
@@ -13,8 +10,8 @@ namespace Seriale.Model
         [JsonProperty("air_date")]
         public DateTime AirDate { get; set; }
         public int Id { get; set; }
-        private string _posterPath;
-        
+
+        private string _posterPath; 
         [JsonProperty("poster_path")]
         public string PosterPath
         {
@@ -30,7 +27,6 @@ namespace Seriale.Model
         public int SeasonNumber { get; set; }
 
         private bool _episodesVisible;
-
         public bool EpisodesVisible
         {
             get { return _episodesVisible; }

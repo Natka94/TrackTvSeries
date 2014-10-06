@@ -1,17 +1,9 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight.Command;
 using Microsoft.Practices.ServiceLocation;
-using Newtonsoft.Json;
 using Seriale.Helpers;
 using Seriale.Model;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Seriale.ViewModel
 {

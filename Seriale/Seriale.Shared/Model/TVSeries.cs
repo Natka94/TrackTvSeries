@@ -1,12 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Net.Http;
-using System.Text;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace Seriale.Model
 {
@@ -47,7 +42,7 @@ namespace Seriale.Model
         {
             get { return _posterPath; }
             set {
-                if (_posterPath == "http://image.tmdb.org/t/p/w92" + value) return;
+                if (_posterPath != null && _posterPath == "http://image.tmdb.org/t/p/w92" + value) return;
                 _posterPath = "http://image.tmdb.org/t/p/w92" + value;
                 
             }
@@ -56,9 +51,11 @@ namespace Seriale.Model
         
         public double Popularity { get; set; }
         public string Name { get; set; }
-        public double vote_average { get; set; }
+        [JsonProperty("vote_average")]
+        public double VoteAverage { get; set; }
         public int vote_count { get; set; }
-        public List<CreatedBy> created_by { get; set; }
+        [JsonProperty("created_by")]
+        public List<CreatedBy> CreatedBy { get; set; }
          [JsonProperty("episode_run_time")]
         public ObservableCollection<int> EpisodeRunTime { get; set; }
        
@@ -69,7 +66,7 @@ namespace Seriale.Model
         public List<string> Languages { get; set; }
         public string last_air_date { get; set; }
       
-        public List<Network> networks { get; set; }
+        public List<Network> Networks { get; set; }
         [JsonProperty("number_of_episodes")]
         public int NumberOfEpisodes { get; set; }
         [JsonProperty("number_of_seasons")]

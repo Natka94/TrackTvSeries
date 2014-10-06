@@ -1,14 +1,7 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.Practices.ServiceLocation;
-using Newtonsoft.Json;
 using Seriale.Helpers;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Seriale.Model;
 using GalaSoft.MvvmLight.Command;
