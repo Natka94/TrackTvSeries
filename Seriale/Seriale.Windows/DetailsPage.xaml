@@ -63,6 +63,7 @@
             <Image Margin="5" Width="92" Source="{Binding CurrentTvSeries.PosterPath}" />
             <StackPanel>
             <TextBlock Text="{Binding CurrentTvSeries.Name}" FontSize="48" />
+            <TextBlock Text="{Binding CurrentTvSeries.in_production}"/>
             <TextBlock TextWrapping="Wrap" Text="{Binding CurrentTvSeries.Overview, FallbackValue=cos nie dziala}" />
                 <TextBlock Text="{Binding CurrentTvSeries.Homepage, FallbackValue=cos nie dziala}" />
                 <Button Content="GoBack" Command="{Binding GoBackCommand}" />

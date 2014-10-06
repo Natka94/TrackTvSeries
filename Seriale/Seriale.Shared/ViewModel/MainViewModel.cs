@@ -54,54 +54,29 @@ namespace Seriale.ViewModel
         public RelayCommand<TvSeries> ShowDetailsPageCommand { get; set; }
        
         private readonly INavigationService _navigationService;
-        public MainViewModel(INavigationService navigationService)
+        private readonly IDataService _dataService;
         
+        public MainViewModel(INavigationService navigationService, IDataService dataService)
+
         {
-          
+            _dataService = dataService;
             _navigationService = navigationService;
-            GetTvSeriesCommand = new RelayCommand( async () => await getTvSeriesAsync());
+            GetTvSeriesCommand = new RelayCommand( async () => AllTvSeries = await _dataService.GetPopularTvSeriesAsync());
             ShowDetailsPageCommand = new RelayCommand<TvSeries>(goToDetails);
-            SearchTvSeriesCommand=new RelayCommand( async () => await searchTVSeriesAsync());
+            SearchTvSeriesCommand=new RelayCommand( async () => AllTvSeries=await _dataService.SearchTvSeriesAsync(TvSeriesQuery));
         }
 
 
         private async void goToDetails(TvSeries selectedTvSeries)
         {
-            
 
             var instances=ServiceLocator.Current.GetInstance<DetailsViewModel>();
             await instances.Initialize(selectedTvSeries.Id);
             _navigationService.NavigateTo(typeof(DetailsPage));
 
         }
-        private async Task getTvSeriesAsync()
-        {
-           
-
-           const string urlBase = "https://api.themoviedb.org/3/tv/popular?api_key=6ddd8a671123ed37164c64d1c8b33a0c";
-           var client = new HttpClient();
-           var json = await client.GetStringAsync(urlBase);
-           AllTvSeries = JsonConvert.DeserializeObject<PageOfTvSeries>(json);
-           
-           
-           
-          
-
-        }
-        private async Task searchTVSeriesAsync()
-        {
-
-
-            var urlBase = "https://api.themoviedb.org/3/search/tv?api_key=6ddd8a671123ed37164c64d1c8b33a0c&query="+TvSeriesQuery;
-            var client = new HttpClient();
-            var json = await client.GetStringAsync(urlBase);
-            AllTvSeries = JsonConvert.DeserializeObject<PageOfTvSeries>(json);
-
-
-
-
-
-        }
+       
+        
         public event PropertyChangedEventHandler PropertyChanged;
        
         protected void NotifyPropertyChanged(string propertyName)

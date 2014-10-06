@@ -34,10 +34,12 @@ namespace Seriale.ViewModel
             {
                 // SimpleIoc.Default.Register<IDataService, Design.DesignDataService>();
                 SimpleIoc.Default.Register<INavigationService, NavigationService>();
+                SimpleIoc.Default.Register<IDataService,DataService>();
             }
             else
             {
                  SimpleIoc.Default.Register<INavigationService, NavigationService>();
+                 SimpleIoc.Default.Register<IDataService, DataService>();
             }
 
             SimpleIoc.Default.Register<MainViewModel>();
@@ -74,5 +76,6 @@ namespace Seriale.ViewModel
                 return ServiceLocator.Current.GetInstance<EpisodeViewModel>();
             }
         }
+        
     }
 }
