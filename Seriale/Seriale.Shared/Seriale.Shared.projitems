@@ -16,6 +16,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\DateTimeToNextEpisodeDate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\DataService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\IDataService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\INavigationService.cs" />

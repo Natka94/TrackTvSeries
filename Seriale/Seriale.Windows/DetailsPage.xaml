@@ -23,6 +23,7 @@
         </DataTemplate>
 
         <valueconverter:BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+        <valueconverter:DateTimeToNextEpisodeDate x:Key="DateTimeToNextEpisode"/>
         <DataTemplate x:Key="SeasonTemplate">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -63,11 +64,10 @@
         <StackPanel Orientation="Horizontal" Margin="50">
             <Image Margin="5" Width="92" Source="{Binding CurrentTvSeries.PosterPath}" />
             <StackPanel>
-            <TextBlock Text="{Binding CurrentTvSeries.Name}" FontSize="48" />
-            <TextBlock Text="{Binding CurrentTvSeries.in_production}"/>
-            <TextBlock TextWrapping="Wrap" Text="{Binding CurrentTvSeries.Overview, FallbackValue=cos nie dziala}" />
-                <TextBlock Text="{Binding CurrentTvSeries.Homepage, FallbackValue=cos nie dziala}" />
-                <TextBlock Text="{Binding NextEpisodeDate}"/>
+                <TextBlock Text="{Binding CurrentTvSeries.Name}" FontSize="48" />
+                <TextBlock TextWrapping="Wrap" Text="{Binding CurrentTvSeries.Overview}" />
+                <TextBlock Text="{Binding CurrentTvSeries.Homepage}" />
+                <TextBlock FontSize="18"  Text="{Binding NextEpisodeDate, Converter={StaticResource DateTimeToNextEpisode}}"/>
                 <Button Content="GoBack" Command="{Binding GoBackCommand}" />
             </StackPanel>
         </StackPanel>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
 using Microsoft.Practices.ServiceLocation;
 using Seriale.Helpers;
@@ -13,17 +12,17 @@ namespace Seriale.ViewModel
     public class DetailsViewModel : INotifyPropertyChanged
     {
        
-        public TvSeries CurrentTvSeries { get; set; }
+       
         private readonly IDataService _dataService;
         private readonly INavigationService _navigationService;
         public RelayCommand GoBackCommand { get; set; }
         public RelayCommand ShowEpisodesCommand { get; set; }
         public RelayCommand ShowEpisodeDetailsCommand { get; set; }
-        public Episode SelectedEpisode  { get; set; }
-        public DateTime NextEpisodeDate{ get; set; }
-        private Season _selectedSeason;
-        
+        public TvSeries CurrentTvSeries { get; set; }
+        public Episode SelectedEpisode  { get; set; } 
+        public DateTime NextEpisodeDate { get; set; }
 
+        private Season _selectedSeason;
         public Season SelectedSeason
         {
             get { return _selectedSeason; }
