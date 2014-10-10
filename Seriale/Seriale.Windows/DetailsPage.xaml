@@ -10,20 +10,22 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     DataContext="{Binding Details, Source={StaticResource Locator}}">
     <Page.Resources>
+        <valueconverter:BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+        <valueconverter:NextEpisodeDateConverter x:Key="NextEpisodeDate"/>
+        <valueconverter:AirDateConverter x:Key="AirDate" />
         <DataTemplate x:Key="EpisodeTemplate">
             <Grid>
                 <StackPanel Orientation="Horizontal" >
                     <TextBlock Text="{Binding EpisodeNumber}" Width="60" />
                     <TextBlock Text="{Binding Name }" Width="250"  />
-                    <TextBlock Text ="{Binding AirDate}"/>
+                    <TextBlock Text ="{Binding AirDate, Converter={StaticResource AirDate}}"/>
                 </StackPanel>
 
             </Grid>
 
         </DataTemplate>
 
-        <valueconverter:BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
-        <valueconverter:DateTimeToNextEpisodeDate x:Key="DateTimeToNextEpisode"/>
+      
         <DataTemplate x:Key="SeasonTemplate">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -36,7 +38,7 @@
                     <TextBlock Text="{Binding SeasonNumber, FallbackValue=Date}" 
                                Padding="3,0,0,0" />
 
-                    <TextBlock Text="{Binding AirDate, FallbackValue=Distance}" />
+                    <TextBlock Text="{Binding AirDate, Converter={StaticResource AirDate}}" />
                     <ListView Visibility= "{Binding EpisodesVisible, 
                         Mode=TwoWay, 
                         Converter={StaticResource BoolToVisConverter} }" 
@@ -67,7 +69,7 @@
                 <TextBlock Text="{Binding CurrentTvSeries.Name}" FontSize="48" />
                 <TextBlock TextWrapping="Wrap" Text="{Binding CurrentTvSeries.Overview}" />
                
-                <TextBlock FontSize="18"  Text="{Binding NextEpisodeDate, Converter={StaticResource DateTimeToNextEpisode}}"/>
+                <TextBlock FontSize="18"  Text="{Binding NextEpisodeDate, Converter={StaticResource NextEpisodeDate}}"/>
                 <Button Content="GoBack" Command="{Binding GoBackCommand}" />
             </StackPanel>
         </StackPanel>

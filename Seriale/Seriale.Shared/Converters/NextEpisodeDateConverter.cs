@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Data;
 
 namespace Seriale.Converters
 {
-    class DateTimeToNextEpisodeDate : IValueConverter
+    class NextEpisodeDateConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
