@@ -13,8 +13,9 @@
         <DataTemplate x:Key="EpisodeTemplate">
             <Grid>
                 <StackPanel Orientation="Horizontal" >
-                    <TextBlock Text="{Binding EpisodeNumber, FallbackValue=Distance}" />
-                    <TextBlock Text="{Binding Name, FallbackValue=Date}" Margin="4,0,0,0" />
+                    <TextBlock Text="{Binding EpisodeNumber}" Width="60" />
+                    <TextBlock Text="{Binding Name }" Width="250"  />
+                    <TextBlock Text ="{Binding AirDate}"/>
                 </StackPanel>
 
             </Grid>
@@ -66,6 +67,7 @@
             <TextBlock Text="{Binding CurrentTvSeries.in_production}"/>
             <TextBlock TextWrapping="Wrap" Text="{Binding CurrentTvSeries.Overview, FallbackValue=cos nie dziala}" />
                 <TextBlock Text="{Binding CurrentTvSeries.Homepage, FallbackValue=cos nie dziala}" />
+                <TextBlock Text="{Binding NearestEpisodeDate}"/>
                 <Button Content="GoBack" Command="{Binding GoBackCommand}" />
             </StackPanel>
         </StackPanel>

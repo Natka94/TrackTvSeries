@@ -35,7 +35,6 @@ namespace Seriale.Model
         public string OriginalName { get; set; }
          [JsonProperty("first_air_date")]
         public string FirstAirDate { get; set; }
-       
         private string _posterPath;
         [JsonProperty("poster_path")]
         public string PosterPath

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.Practices.ServiceLocation;
 using Seriale.Helpers;
 using System.ComponentModel;
@@ -18,6 +19,16 @@ namespace Seriale.ViewModel
         public RelayCommand ShowEpisodesCommand { get; set; }
         public RelayCommand ShowEpisodeDetailsCommand { get; set; }
         public Episode SelectedEpisode  { get; set; }
+        private string _nearestEpisode;
+        public string NearestEpisodeDate
+        {
+            get { return _nearestEpisode; }
+            set
+            {
+                _nearestEpisode = value;
+                NotifyPropertyChanged("NearestSeason");
+            }
+        }
         private Season _selectedSeason;
 
         public Season SelectedSeason
@@ -34,6 +45,7 @@ namespace Seriale.ViewModel
         {
             CurrentTvSeries.Id = id;
             CurrentTvSeries= await _dataService.GetTvSeriesInfoAsync(CurrentTvSeries.Id);
+          //  NearestEpisodeDate = await findNextEpisode();
         }
 
         public DetailsViewModel(INavigationService navigationService, IDataService dataService)
@@ -44,16 +56,19 @@ namespace Seriale.ViewModel
             GoBackCommand = new RelayCommand(GoBack);
             ShowEpisodesCommand = new RelayCommand(async () => await loadEpisodes());
             ShowEpisodeDetailsCommand=new RelayCommand(async () => await goToEpisodeDetails());
+        
         }
 
         private async Task loadEpisodes()
         {
+            
             if (SelectedSeason == null || SelectedSeason.EpisodesVisible) return;
             var season = await _dataService.GetSeasonInfoAsync(CurrentTvSeries.Id,SelectedSeason.SeasonNumber);
          
             var indexOfSeason = CurrentTvSeries.Seasons.ToList().FindIndex(x => SelectedSeason.Id == x.Id);
             CurrentTvSeries.Seasons[indexOfSeason] = season;
             CurrentTvSeries.Seasons[indexOfSeason].EpisodesVisible = true;
+            
         }
 
         public void GoBack()
@@ -68,8 +83,32 @@ namespace Seriale.ViewModel
             _navigationService.NavigateTo(typeof(EpisodePage));
 
         }
-       
 
+        private async Task<string> findNextEpisode()
+        {
+            if (CurrentTvSeries.Status == "Ended") return "Ended";
+
+            var nextSeason = CurrentTvSeries.Seasons.Where(x => x.AirDate > DateTime.Now).FirstOrDefault();
+            DateTime nextSeasonDate=default(DateTime);
+            if (nextSeason != null)  nextSeasonDate = nextSeason.AirDate;
+            var seasonOnAir =
+                CurrentTvSeries.Seasons.Where(x => x.AirDate <= DateTime.Now)
+                    .OrderByDescending(d => d.AirDate)
+                    .FirstOrDefault();           
+            seasonOnAir = await _dataService.GetSeasonInfoAsync(CurrentTvSeries.Id, seasonOnAir.SeasonNumber);
+            DateTime nextEpisodeInSeasonDate =
+               seasonOnAir.Episodes.Where(x => x.AirDate >= DateTime.Now).FirstOrDefault().AirDate;
+
+            if (nextSeason == null)
+                return nextEpisodeInSeasonDate.ToString();
+            else
+            {
+                return (nextSeasonDate < nextEpisodeInSeasonDate)
+                    ? nextSeasonDate.ToString(): nextEpisodeInSeasonDate.ToString();
+            }
+
+
+        }
        
 
         public event PropertyChangedEventHandler PropertyChanged;
