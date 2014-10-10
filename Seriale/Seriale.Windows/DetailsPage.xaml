@@ -67,7 +67,7 @@
             <TextBlock Text="{Binding CurrentTvSeries.in_production}"/>
             <TextBlock TextWrapping="Wrap" Text="{Binding CurrentTvSeries.Overview, FallbackValue=cos nie dziala}" />
                 <TextBlock Text="{Binding CurrentTvSeries.Homepage, FallbackValue=cos nie dziala}" />
-                <TextBlock Text="{Binding NearestEpisodeDate}"/>
+                <TextBlock Text="{Binding NextEpisodeDate}"/>
                 <Button Content="GoBack" Command="{Binding GoBackCommand}" />
             </StackPanel>
         </StackPanel>
