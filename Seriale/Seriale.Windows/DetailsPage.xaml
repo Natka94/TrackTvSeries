@@ -63,10 +63,10 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Margin="50">
             <Image Margin="5" Width="92" Source="{Binding CurrentTvSeries.PosterPath}" />
-            <StackPanel>
+            <StackPanel Width="600" Margin="5">
                 <TextBlock Text="{Binding CurrentTvSeries.Name}" FontSize="48" />
                 <TextBlock TextWrapping="Wrap" Text="{Binding CurrentTvSeries.Overview}" />
-                <TextBlock Text="{Binding CurrentTvSeries.Homepage}" />
+               
                 <TextBlock FontSize="18"  Text="{Binding NextEpisodeDate, Converter={StaticResource DateTimeToNextEpisode}}"/>
                 <Button Content="GoBack" Command="{Binding GoBackCommand}" />
             </StackPanel>
