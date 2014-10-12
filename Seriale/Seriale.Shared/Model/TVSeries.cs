@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using GalaSoft.MvvmLight;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -33,8 +35,8 @@ namespace Seriale.Model
         public int Id { get; set; }
         [JsonProperty("orginal_name")]
         public string OriginalName { get; set; }
-         [JsonProperty("first_air_date")]
-        public string FirstAirDate { get; set; }
+        [JsonProperty("first_air_date")]
+        public DateTime? FirstAirDate { get; set; }
         private string _posterPath;
         [JsonProperty("poster_path")]
         public string PosterPath
@@ -77,7 +79,8 @@ namespace Seriale.Model
         public string Status { get; set; }
         public bool Adult { get; set; }
         public string original_title { get; set; }
-        public string release_date { get; set; }
+        [JsonProperty("release_date")]
+        public string ReleaseDate { get; set; }
        
     }
 }
