@@ -35,8 +35,8 @@ namespace Seriale.Model
         public int Id { get; set; }
         [JsonProperty("orginal_name")]
         public string OriginalName { get; set; }
-        [JsonProperty("first_air_date")]
-        public DateTime? FirstAirDate { get; set; }
+        [JsonProperty("first_air_date",NullValueHandling = NullValueHandling.Ignore)]
+        public DateTime FirstAirDate { get; set; }
         private string _posterPath;
         [JsonProperty("poster_path")]
         public string PosterPath

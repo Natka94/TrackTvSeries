@@ -10,13 +10,13 @@ namespace Seriale.Converters
         private string countDaysLeft(DateTime date)
         {
             TimeSpan diff = date - DateTime.Now ;
-            return string.Format("({0}{1} left)",  diff.Days+1, diff.Days == 1 ? " day" : " days");
+            return string.Format("({0}{1} left)",  diff.Days, diff.Days == 1 ? " day" : " days");
         }
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var date = (DateTime) value;
-            return date == default(DateTime) ? "Ended" : date.ToString("dd MMMM yyyy ") + countDaysLeft(date);
+            return date == default(DateTime) ? "Date of the next episode is unknown." : "Next episode: " +date.ToString("dd MMMM yyyy ") + countDaysLeft(date);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

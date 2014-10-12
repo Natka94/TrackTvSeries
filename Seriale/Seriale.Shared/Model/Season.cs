@@ -7,7 +7,8 @@ namespace Seriale.Model
 {
     public class Season : INotifyPropertyChanged
     {
-        [JsonProperty("air_date")]
+        [JsonProperty("air_date", NullValueHandling = NullValueHandling.Ignore)]
+       
         public DateTime AirDate { get; set; }
         public int Id { get; set; }
 

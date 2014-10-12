@@ -11,7 +11,7 @@ namespace Seriale.Converters
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var date = (DateTime) value;
-            return date.ToString("dd MMMM yyyy");
+            return date==default(DateTime)?"":date.ToString("dd MMMM yyyy");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

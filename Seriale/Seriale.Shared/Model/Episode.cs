@@ -10,7 +10,7 @@ namespace Seriale.Model
 {
     public class Episode: ObservableObject
     {
-        [JsonProperty("air_date")]
+        [JsonProperty("air_date",NullValueHandling=NullValueHandling.Ignore)]
         public DateTime AirDate { get; set; }
         [JsonProperty("episode_number")]
         public int EpisodeNumber { get; set; }

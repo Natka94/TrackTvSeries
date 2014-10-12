@@ -44,7 +44,7 @@ namespace Seriale.Helpers
                     .OrderByDescending(d => d.AirDate)
                     .FirstOrDefault();
                 seasonOnAir = await _dataService.GetSeasonInfoAsync(_tvSeries.Id, seasonOnAir.SeasonNumber);
-                DateTime nextEpisodeInSeasonDate =
+                var nextEpisodeInSeasonDate = (DateTime)
                     seasonOnAir.Episodes.Where(x => x.AirDate >= DateTime.Now).FirstOrDefault().AirDate;
                 return nextEpisodeInSeasonDate;
             }
@@ -59,7 +59,7 @@ namespace Seriale.Helpers
             var nextSeason = _tvSeries.Seasons.Where(x => x.AirDate > DateTime.Now).FirstOrDefault();
 
             DateTime nextSeasonDate = default(DateTime);
-            if (nextSeason != null) nextSeasonDate = nextSeason.AirDate;
+            if (nextSeason != null && nextSeason.AirDate != null) nextSeasonDate = (DateTime) nextSeason.AirDate;
             return nextSeasonDate;
         }
     }

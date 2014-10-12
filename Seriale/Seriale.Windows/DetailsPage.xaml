@@ -10,53 +10,60 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     DataContext="{Binding Details, Source={StaticResource Locator}}">
     <Page.Resources>
-        <valueconverter:BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
-        <valueconverter:NextEpisodeDateConverter x:Key="NextEpisodeDate"/>
+        <valueconverter:BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+        <valueconverter:NextEpisodeDateConverter x:Key="NextEpisodeDate" />
         <valueconverter:AirDateConverter x:Key="AirDate" />
         <DataTemplate x:Key="EpisodeTemplate">
             <Grid>
                 <StackPanel Orientation="Horizontal" Height="20">
-                    
+
                     <TextBlock Text="{Binding EpisodeNumber}" Width="30" />
-                    <TextBlock Text="{Binding Name }" Width="200"  />
-                    <TextBlock Text ="{Binding AirDate, Converter={StaticResource AirDate}}" Width="150" TextAlignment="Right"/>
+                    <TextBlock Text="{Binding Name }" Width="250" />
+                    <TextBlock Text="{Binding AirDate, Converter={StaticResource AirDate}}" Width="150"
+                               TextAlignment="Right" />
                 </StackPanel>
 
             </Grid>
 
         </DataTemplate>
 
-      
+
         <DataTemplate x:Key="SeasonTemplate">
             <Grid>
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Image Width="35" Source="{Binding PosterPath}" />
                 <StackPanel Grid.Column="1" Margin="5">
-                    
-                    <StackPanel Orientation="Horizontal" >
+
+                    <StackPanel Orientation="Horizontal">
                         <StackPanel.Resources>
-                            <Style x:Key="SeasonHeader" TargetType="TextBlock" >
-                                <Setter Property="FontSize" Value="18"/>
-                                <Setter Property="FontWeight" Value="SemiBold"/>
+                            <Style x:Key="SeasonHeader" TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="18" />
+                                <Setter Property="FontWeight" Value="SemiBold" />
                             </Style>
                         </StackPanel.Resources>
-                        <TextBlock Style="{StaticResource SeasonHeader}" Text="Season " Padding="3,0,3,0"/>
-                        <TextBlock Style="{StaticResource SeasonHeader}" Text="{Binding SeasonNumber, FallbackValue=Date}" 
-                               Width="180" />
-                        <TextBlock Style="{StaticResource SeasonHeader}" TextAlignment="Right" Width="160" FontStyle="Italic" Foreground="LightSlateGray" Text="{Binding AirDate, Converter={StaticResource AirDate}}"  />
+                        <TextBlock Style="{StaticResource SeasonHeader}" Text="Season " Padding="5,0,5,0" />
+                        <TextBlock Style="{StaticResource SeasonHeader}"
+                                   Text="{Binding SeasonNumber, FallbackValue=Date}"
+                                   Width="230" />
+                        <TextBlock Style="{StaticResource SeasonHeader}" TextAlignment="Right" Width="160"
+                                   FontStyle="Italic" Foreground="LightSlateGray"
+                                   Text="{Binding AirDate, Converter={StaticResource AirDate}}" />
                     </StackPanel>
-                    <ListView Visibility= "{Binding EpisodesVisible, 
+                    <ListView
+                        Visibility="{Binding EpisodesVisible, 
                         Mode=TwoWay, 
-                        Converter={StaticResource BoolToVisConverter} }" 
-                              SelectedItem="{Binding ElementName=FirstLevelListView,Path=DataContext.SelectedEpisode, Mode=TwoWay}"
-                              ItemsSource="{Binding Episodes,Mode=TwoWay}" ItemTemplate="{StaticResource EpisodeTemplate}" >
+                        Converter={StaticResource BoolToVisConverter} }"
+                        SelectedItem="{Binding ElementName=FirstLevelListView,Path=DataContext.SelectedEpisode, Mode=TwoWay}"
+                        ItemsSource="{Binding Episodes,Mode=TwoWay}" ItemTemplate="{StaticResource EpisodeTemplate}">
                         <interactivity:Interaction.Behaviors>
                             <Core:EventTriggerBehavior EventName="Tapped">
-                                <Core:InvokeCommandAction Command="{Binding ElementName=FirstLevelListView,Path=DataContext.ShowEpisodeDetailsCommand}"/>
-          
+                                <Core:InvokeCommandAction
+                                    Command="{Binding ElementName=FirstLevelListView,Path=DataContext.ShowEpisodeDetailsCommand}" />
+
                             </Core:EventTriggerBehavior>
                         </interactivity:Interaction.Behaviors>
                     </ListView>
@@ -68,36 +75,50 @@
 
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-       
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="120" />
+            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="6*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal" Margin="50" Width="600" VerticalAlignment="Center">
-            <Image Margin="5" Width="92" Source="{Binding CurrentTvSeries.PosterPath}" />
-            <StackPanel  Margin="30">
-                <TextBlock Text="{Binding CurrentTvSeries.Name}" FontSize="48" />
-                <TextBlock TextWrapping="Wrap" Text="{Binding CurrentTvSeries.Overview}" TextAlignment="Justify"/>
-               
-                <TextBlock FontSize="18"  Text="{Binding NextEpisodeDate, Converter={StaticResource NextEpisodeDate}}"/>
-                <Button Content="GoBack" Command="{Binding GoBackCommand}" />
-            </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding CurrentTvSeries.Name}" Grid.ColumnSpan="3" TextAlignment="Center" FontSize="84"
+                   Foreground="Crimson" Margin="0,0,150,0" VerticalAlignment="Center" />
+
+        <Image Margin="5" Width="92" Grid.Row="1" Source="{Binding CurrentTvSeries.PosterPath}"
+               VerticalAlignment="Center" HorizontalAlignment="Right" />
+
+        <StackPanel Margin="30" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
+
+            <TextBlock TextWrapping="Wrap" FontSize="14" Text="{Binding CurrentTvSeries.Overview}" Margin="20"
+                       TextAlignment="Justify" />
+
+            <TextBlock FontSize="18" Margin="20" FontWeight="SemiBold" Foreground="#982E44"
+                       Text="{Binding NextEpisodeDate, Converter={StaticResource NextEpisodeDate}}" />
+            <Button Content="GoBack" Command="{Binding GoBackCommand}" />
+
         </StackPanel>
-        <ListView Name="FirstLevelListView" Grid.Column="1" VerticalAlignment="Center"
-             ItemsSource="{Binding CurrentTvSeries.Seasons, Mode=TwoWay}" 
-                      ItemTemplate="{StaticResource SeasonTemplate }"
-                      SelectedItem="{Binding SelectedSeason,Mode=TwoWay}"
-                      ScrollViewer.HorizontalScrollMode="Auto"
+
+
+        <ListView Name="FirstLevelListView" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center"
+                  ItemsSource="{Binding CurrentTvSeries.Seasons, Mode=TwoWay}"
+                  ItemTemplate="{StaticResource SeasonTemplate }"
+                  SelectedItem="{Binding SelectedSeason,Mode=TwoWay}"
+                  ScrollViewer.HorizontalScrollMode="Auto"
                   ScrollViewer.VerticalScrollMode="Auto"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                  ScrollViewer.VerticalScrollBarVisibility="Auto" Width="600">
+                  ScrollViewer.VerticalScrollBarVisibility="Auto" BorderThickness="1">
             <interactivity:Interaction.Behaviors>
                 <Core:EventTriggerBehavior EventName="Tapped">
                     <Core:InvokeCommandAction Command="{Binding ShowEpisodesCommand}" />
                 </Core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
         </ListView>
-        
-        
+
+
     </Grid>
 </Page>
