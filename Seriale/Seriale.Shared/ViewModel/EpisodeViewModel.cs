@@ -10,8 +10,8 @@ namespace Seriale.ViewModel
     {
         public Episode CurrentEpisode { get; set; } // może fasada?
         public TvSeries CurrentTvSeries { get; set; }
-        public int NumberOfSeason { get; set; }
-        public int NumberOfEpisode { get; set; }
+        public int SeasonNumber { get; set; }
+        public int EpisodeNumber { get; set; }
 
         public RelayCommand GoBackCommand { get; set; }
         private INavigationService _navigationService;
@@ -27,8 +27,8 @@ namespace Seriale.ViewModel
         public async Task Initialize(TvSeries currentTvSeries, int numberOfSeason, int numberOfEpisode)
         {
             CurrentTvSeries = currentTvSeries;
-            NumberOfSeason = numberOfSeason;
-            NumberOfEpisode = numberOfEpisode;
+            SeasonNumber = numberOfSeason;
+            EpisodeNumber = numberOfEpisode;
             CurrentEpisode = await _dataService.GetEpisodeInfoAsync(CurrentTvSeries.Id, numberOfSeason, numberOfEpisode);
         }
     }
