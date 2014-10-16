@@ -8,14 +8,16 @@
         
         <Style TargetType="TextBlock" x:Key="DefaultTextBlock">
           
-            <Setter Property="Foreground" Value="#191717"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+          
         </Style>
         <Style TargetType="Grid" x:Key="MainGrid">
             <Setter Property="Background" Value="White"/>
         </Style>
         <Style TargetType="Button" x:Key="DefaultButton">
-            <Setter Property="BorderBrush" Value="Salmon"/>
-            <Setter Property="Foreground" Value="Tomato"/>
+            <Setter Property="BorderBrush" Value="#085773"/>
+            <Setter Property="Foreground" Value="#0A6B8C"/>
             
         </Style>
     </Application.Resources>

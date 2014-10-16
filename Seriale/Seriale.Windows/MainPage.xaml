@@ -20,9 +20,9 @@
                     <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
                 <Image Width="154"   Source="{Binding PosterPath}" />
-                <StackPanel Grid.Row="1" Margin="8">
+                <StackPanel Grid.Row="1" Height="40"  Background="#1E8DB3" VerticalAlignment="Center" >
 
-                    <TextBlock Style ="{StaticResource DefaultTextBlock}" Text="{Binding Name}" FontWeight="SemiBold" Foreground="Coral" />
+                    <TextBlock  Style ="{StaticResource DefaultTextBlock}" Text="{Binding Name}" />
 
                 </StackPanel>
 
@@ -40,7 +40,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="TvShow for Today"  FontSize="50" Foreground="DarkSalmon"  HorizontalAlignment="Center" />
+        <TextBlock Text="TvShow for Today"  FontSize="50" Foreground="#0A6B8C"  HorizontalAlignment="Center" />
 
         <Button Grid.Row="1" Content="Show popular" Style="{StaticResource DefaultButton}"
                 Command="{Binding GetTvSeriesCommand}"
