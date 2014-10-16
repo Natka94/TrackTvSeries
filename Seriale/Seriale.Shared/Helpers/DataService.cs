@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using Windows.UI.Xaml.Controls;
+using Newtonsoft.Json;
 using Seriale.Model;
 using System;
 using System.Net.Http;
@@ -42,12 +45,24 @@ namespace Seriale.Helpers
             return JsonConvert.DeserializeObject<Episode>(json);
         }
 
-        public async Task<PageOfTvSeries> GetPopularTvSeriesAsync()
+        public async Task<PageOfTvSeries> GetPopularTvSeriesAsync(int amount)
         {
-            const string urlBase = "https://api.themoviedb.org/3/tv/popular?api_key=6ddd8a671123ed37164c64d1c8b33a0c";
+            var pageOfTvSeries=new PageOfTvSeries {List = new ObservableCollection<TvSeries>()};
             var client = new HttpClient();
-            var json = await client.GetStringAsync(urlBase);
-            return JsonConvert.DeserializeObject<PageOfTvSeries>(json);
+            for (var i = 1; i <= amount; i++)
+            {
+                string urlBase = String.Format("https://api.themoviedb.org/3/tv/popular?api_key=6ddd8a671123ed37164c64d1c8b33a0c&page={0}",i);
+                var json = await client.GetStringAsync(urlBase);
+                var newPage = JsonConvert.DeserializeObject<PageOfTvSeries>(json);
+                foreach (var p in newPage.List)
+                {
+                    pageOfTvSeries.List.Add(p);
+                }
+            }
+
+
+
+            return pageOfTvSeries;
         }
 
         public async Task<PageOfTvSeries> SearchTvSeriesAsync(string tvSeriesQuery)

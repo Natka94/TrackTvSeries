@@ -53,7 +53,7 @@ namespace Seriale.ViewModel
         {
             _dataService = dataService;
             _navigationService = navigationService;
-            GetTvSeriesCommand = new RelayCommand( async () => AllTvSeries = await _dataService.GetPopularTvSeriesAsync());
+            GetTvSeriesCommand = new RelayCommand( async () => AllTvSeries = await _dataService.GetPopularTvSeriesAsync(3));
             ShowDetailsPageCommand = new RelayCommand<TvSeries>(goToDetails);
             SearchTvSeriesCommand=new RelayCommand( async () => AllTvSeries=await _dataService.SearchTvSeriesAsync(TvSeriesQuery));
         }

@@ -43,8 +43,8 @@ namespace Seriale.Model
         {
             get { return _posterPath; }
             set {
-                if (_posterPath != null && _posterPath == "http://image.tmdb.org/t/p/w92" + value) return;
-                _posterPath = "http://image.tmdb.org/t/p/w92" + value;
+                if (_posterPath != null && _posterPath == "http://image.tmdb.org/t/p/w154" + value) return;
+                _posterPath = "http://image.tmdb.org/t/p/w154" + value;
                 
             }
         }
