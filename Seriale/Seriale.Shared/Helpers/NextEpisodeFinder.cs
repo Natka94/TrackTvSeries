@@ -40,12 +40,12 @@ namespace Seriale.Helpers
         {
             try
             {
-                var seasonOnAir = _tvSeries.Seasons.Where(x => x.AirDate <= DateTime.Now)
+                var seasonOnAir = _tvSeries.Seasons.Where(x => x.AirDate.Date <= DateTime.Now.Date)
                     .OrderByDescending(d => d.AirDate)
                     .FirstOrDefault();
                 seasonOnAir = await _dataService.GetSeasonInfoAsync(_tvSeries.Id, seasonOnAir.SeasonNumber);
                 var nextEpisodeInSeasonDate = (DateTime)
-                    seasonOnAir.Episodes.Where(x => x.AirDate >= DateTime.Now).FirstOrDefault().AirDate;
+                    seasonOnAir.Episodes.Where(x => x.AirDate.Date >= DateTime.Now.Date).FirstOrDefault().AirDate;
                 return nextEpisodeInSeasonDate;
             }
             catch (NullReferenceException)
@@ -56,7 +56,7 @@ namespace Seriale.Helpers
 
         private DateTime getNextSeasonDate()
         {
-            var nextSeason = _tvSeries.Seasons.Where(x => x.AirDate > DateTime.Now).FirstOrDefault();
+            var nextSeason = _tvSeries.Seasons.Where(x => x.AirDate.Date > DateTime.Now.Date).FirstOrDefault();
 
             DateTime nextSeasonDate = default(DateTime);
             if (nextSeason != null && nextSeason.AirDate != null) nextSeasonDate = (DateTime) nextSeason.AirDate;
