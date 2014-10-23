@@ -42,11 +42,14 @@
 
         <TextBlock Text="TvShow for Today" Margin="10" FontSize="50" Foreground="#0A6B8C"  HorizontalAlignment="Center" />
         <StackPanel Orientation="Horizontal" Grid.Row="1">
-        <Button  Content="Show popular" Style="{StaticResource DefaultButton}"
+        <Button  Content="Popular" Style="{StaticResource DefaultButton}"
                 Command="{Binding GetPopularTvSeriesCommand}"
                 Width="200" />
-        <Button  Content="Show airing today" Style="{StaticResource DefaultButton}"
+        <Button  Content="Airing today" Style="{StaticResource DefaultButton}"
                 Command="{Binding GetAiringTodayTvSeriesCommand}"
+                Width="200" />
+            <Button  Content="Top rated" Style="{StaticResource DefaultButton}"
+                Command="{Binding GetTopRatedTvSeriesCommand}"
                 Width="200" />
         </StackPanel>
            <SearchBox HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Height="30" Width="300"  QueryText="{Binding TvSeriesQuery , Mode=TwoWay}" >

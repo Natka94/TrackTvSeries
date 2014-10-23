@@ -44,6 +44,7 @@ namespace Seriale.ViewModel
         public RelayCommand SearchTvSeriesCommand { get; set; }
         public RelayCommand GetPopularTvSeriesCommand { get; set; }
         public RelayCommand GetAiringTodayTvSeriesCommand { get; set; }
+        public RelayCommand GetTopRatedTvSeriesCommand { get; set; }
         public RelayCommand<TvSeries> ShowDetailsPageCommand { get; set; }
        
         private readonly INavigationService _navigationService;
@@ -55,7 +56,8 @@ namespace Seriale.ViewModel
             _dataService = dataService;
             _navigationService = navigationService;
             GetPopularTvSeriesCommand = new RelayCommand( async () => AllTvSeries = await _dataService.GetPopularTvSeriesAsync(3));
-            GetAiringTodayTvSeriesCommand = new RelayCommand(async () => AllTvSeries = await _dataService.GetAiringTodayTvSeriesAsync(3));  
+            GetAiringTodayTvSeriesCommand = new RelayCommand(async () => AllTvSeries = await _dataService.GetAiringTodayTvSeriesAsync(3));
+            GetTopRatedTvSeriesCommand = new RelayCommand(async () => AllTvSeries = await _dataService.GetTopRatedTvSeriesAsync(1));  
             ShowDetailsPageCommand = new RelayCommand<TvSeries>(goToDetails);
             SearchTvSeriesCommand=new RelayCommand( async () => AllTvSeries=await _dataService.SearchTvSeriesAsync(TvSeriesQuery));
       

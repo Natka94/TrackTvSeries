@@ -1,6 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Linq;
-using Windows.UI.Xaml.Controls;
 using Newtonsoft.Json;
 using Seriale.Model;
 using System;
@@ -67,6 +65,25 @@ namespace Seriale.Helpers
             for (var i = 1; i <= amount; i++)
             {
                 string urlBase = String.Format("https://api.themoviedb.org/3/tv/airing_today?api_key=6ddd8a671123ed37164c64d1c8b33a0c&page={0}",i);
+                var json = await client.GetStringAsync(urlBase);
+                var newPage = JsonConvert.DeserializeObject<PageOfTvSeries>(json);
+                foreach (var p in newPage.List)
+                {
+                    pageOfTvSeries.List.Add(p);
+                }
+            }
+
+
+
+            return pageOfTvSeries;
+        }
+        public async Task<PageOfTvSeries> GetTopRatedTvSeriesAsync(int amount)
+        {
+            var pageOfTvSeries = new PageOfTvSeries { List = new ObservableCollection<TvSeries>() };
+            var client = new HttpClient();
+            for (var i = 1; i <= amount; i++)
+            {
+                string urlBase = String.Format("https://api.themoviedb.org/3/tv/top_rated?api_key=6ddd8a671123ed37164c64d1c8b33a0c&page={0}", i);
                 var json = await client.GetStringAsync(urlBase);
                 var newPage = JsonConvert.DeserializeObject<PageOfTvSeries>(json);
                 foreach (var p in newPage.List)

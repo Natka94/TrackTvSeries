@@ -10,6 +10,7 @@ namespace Seriale.Helpers
         Task<Episode> GetEpisodeInfoAsync(int idOfTvSeries, int numberOfSeason, int numberOfEpisode);
         Task<PageOfTvSeries> GetPopularTvSeriesAsync(int amount);
         Task<PageOfTvSeries> GetAiringTodayTvSeriesAsync(int amount);
+        Task<PageOfTvSeries> GetTopRatedTvSeriesAsync(int amount);
         Task<PageOfTvSeries> SearchTvSeriesAsync(string tvSeriesQuery);
 
         
