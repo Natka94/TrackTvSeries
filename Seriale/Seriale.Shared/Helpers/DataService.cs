@@ -36,13 +36,28 @@ namespace Seriale.Helpers
 
         public async Task<Episode> GetEpisodeInfoAsync(int idOfTvSeries, int numberOfSeason, int numberOfEpisode)
         {
-            var urlBase =
-                String.Format(
-                    "https://api.themoviedb.org/3/tv/{0}/season/{1}/episode/{2}?api_key=6ddd8a671123ed37164c64d1c8b33a0c",
-                    idOfTvSeries, numberOfSeason, numberOfEpisode);
-            var client = new HttpClient();
-            var json = await client.GetStringAsync(urlBase);
-            return JsonConvert.DeserializeObject<Episode>(json);
+            try
+            {
+                var urlBase =
+                    String.Format(
+                        "https://api.themoviedb.org/3/tv/{0}/season/{1}/episode/{2}?api_key=6ddd8a671123ed37164c64d1c8b33a0c",
+                        idOfTvSeries, numberOfSeason, numberOfEpisode);
+                var client = new HttpClient();
+                var json = await client.GetStringAsync(urlBase);
+
+                return JsonConvert.DeserializeObject<Episode>(json);
+            }
+            catch (HttpRequestException)
+            {
+
+                return new Episode()
+                {
+                    Name = "Error",
+                    Overview = "Sorry, We don't have any information about this episode. "
+
+                };
+            }
+
         }
 
         public async Task<PageOfTvSeries> GetAiringTodayTvSeriesAsync(int amount)
