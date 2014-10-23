@@ -58,62 +58,39 @@ namespace Seriale.Helpers
 
         }
 
-        public async Task<PageOfTvSeries> GetAiringTodayTvSeriesAsync(int amount)
+        private async Task<PageOfTvSeries> getTvSeriesListAsync(string urlBase,int amount)
         {
             var pageOfTvSeries=new PageOfTvSeries {List = new ObservableCollection<TvSeries>()};
             var client = new HttpClient();
             for (var i = 1; i <= amount; i++)
             {
-                string urlBase = String.Format("https://api.themoviedb.org/3/tv/airing_today?api_key=6ddd8a671123ed37164c64d1c8b33a0c&page={0}",i);
-                var json = await client.GetStringAsync(urlBase);
+                string urlBaseForPage = String.Format("{0}={1}",urlBase, i);
+                var json = await client.GetStringAsync(urlBaseForPage);
                 var newPage = JsonConvert.DeserializeObject<PageOfTvSeries>(json);
                 foreach (var p in newPage.List)
                 {
                     pageOfTvSeries.List.Add(p);
                 }
             }
-
-
-
             return pageOfTvSeries;
         }
+
+        public async Task<PageOfTvSeries> GetAiringTodayTvSeriesAsync(int amount)
+        {
+            const string urlBase = "https://api.themoviedb.org/3/tv/airing_today?api_key=6ddd8a671123ed37164c64d1c8b33a0c&page";
+            return await getTvSeriesListAsync(urlBase, amount);
+        }
+
         public async Task<PageOfTvSeries> GetTopRatedTvSeriesAsync(int amount)
         {
-            var pageOfTvSeries = new PageOfTvSeries { List = new ObservableCollection<TvSeries>() };
-            var client = new HttpClient();
-            for (var i = 1; i <= amount; i++)
-            {
-                string urlBase = String.Format("https://api.themoviedb.org/3/tv/top_rated?api_key=6ddd8a671123ed37164c64d1c8b33a0c&page={0}", i);
-                var json = await client.GetStringAsync(urlBase);
-                var newPage = JsonConvert.DeserializeObject<PageOfTvSeries>(json);
-                foreach (var p in newPage.List)
-                {
-                    pageOfTvSeries.List.Add(p);
-                }
-            }
-
-
-
-            return pageOfTvSeries;
+            const string urlBase = "https://api.themoviedb.org/3/tv/top_rated?api_key=6ddd8a671123ed37164c64d1c8b33a0c&page";
+            return await getTvSeriesListAsync(urlBase, amount);  
         }
+
         public async Task<PageOfTvSeries> GetPopularTvSeriesAsync(int amount)
         {
-            var pageOfTvSeries = new PageOfTvSeries { List = new ObservableCollection<TvSeries>() };
-            var client = new HttpClient();
-            for (var i = 1; i <= amount; i++)
-            {
-                string urlBase = String.Format("https://api.themoviedb.org/3/tv/popular?api_key=6ddd8a671123ed37164c64d1c8b33a0c&page={0}", i);
-                var json = await client.GetStringAsync(urlBase);
-                var newPage = JsonConvert.DeserializeObject<PageOfTvSeries>(json);
-                foreach (var p in newPage.List)
-                {
-                    pageOfTvSeries.List.Add(p);
-                }
-            }
-
-
-
-            return pageOfTvSeries;
+            const string urlBase = "https://api.themoviedb.org/3/tv/popular?api_key=6ddd8a671123ed37164c64d1c8b33a0c&page";
+            return await getTvSeriesListAsync(urlBase, amount);
         }
         public async Task<PageOfTvSeries> SearchTvSeriesAsync(string tvSeriesQuery)
         {
